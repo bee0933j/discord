@@ -2,6 +2,7 @@
 Credentials are read only from environment variables. Do not share them.
 """
 import asyncio
+import traceback
 import json
 import os
 import re
@@ -130,7 +131,8 @@ class CombinedBot(commands.Bot):
         except asyncio.CancelledError:
             raise
         except Exception as exc:
-            print('카페 알림 시작 실패:', type(exc).__name__, '— 역할 기능은 계속 사용 가능')
+            print('카페 알림 시작 실패:', type(exc).__name__, '— 역할 기능은 계속 사용 가능', flush=True)
+            traceback.print_exc()
 
 
 bot = CombinedBot()
