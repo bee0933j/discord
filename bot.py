@@ -115,6 +115,12 @@ class CombinedBot(commands.Bot):
                                 self.state['notice_initialized'] = True
                                 self.save()
                                 print(f'기존 공지 {len(current)}개 기록. 기존 글은 보내지 않습니다.')
+                                item = next(iter(current.values()))
+                                await channel.send(
+                                f'🧪 카페 알림 테스트\n'
+                                f'{item["title"][:200]}\n'
+                                 f'{item["url"]}'
+                                )
                             else:
                                 fresh = [(k, v) for k, v in current.items() if k not in seen]
                                 for key, item in reversed(fresh):
