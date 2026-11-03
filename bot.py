@@ -17,7 +17,9 @@ from dotenv import load_dotenv
 
 BASE = Path(__file__).resolve().parent
 load_dotenv(BASE / '.env', override=False)
-STATE_PATH = BASE / 'combined_bot_state.json'
+STATE_PATH = Path(os.getenv('STATE_PATH', '/tmp/combined_bot_state.json'))
+STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+
 TARGET = 'https://m.cafe.naver.com/ca-fe/onimobile?tc=article&tab=notice'
 INTERVAL = 120
 
@@ -81,7 +83,7 @@ class CombinedBot(commands.Bot):
                 return
             async with async_playwright() as p:
                 context = await p.chromium.launch_persistent_context(
-                    str(BASE / 'naver_browser_profile_combined'),
+                    os.getenv('BROWSER_PROFILE_DIR', '/tmp/naver_browser_profile_combined'),
                     headless=os.getenv('HEADLESS', '0') == '1',
                     viewport={'width': 480, 'height': 900})
                 try:
