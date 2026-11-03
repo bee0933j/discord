@@ -1,0 +1,6 @@
+.env
+.git
+__pycache__
+naver_browser_profile_combined
+combined_bot_state.json
+combined_bot_state.tmp
